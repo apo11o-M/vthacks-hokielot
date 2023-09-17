@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Parking Lot Status</title>
+  <img src="{{ url_for('static', filename='vtHacksLogo.png') }}" alt="vtHacks Logo" id="logo">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='design.css') }}">
+  <script src="{{ url_for('static', filename='indexJS.js') }}"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      const totalSpaces = 62;
+
+      function fetchCarCount() {
+        $.get('/get_car_count', function(data) {
+          const carCount = data.number;
+          const freeSpaces = totalSpaces - carCount;
+
+          $('#number').text(freeSpaces);
+          $('#total').text(totalSpaces);
+          $('#fill').css('width', ((carCount / totalSpaces) * 100) + '%');
+        });
+      }
+      fetchCarCount();
+
+      // we don't need to call the prediction all the time to waste resources for now
+      // setInterval(fetchCarCount, 10);
+    });
+  </script>
+</head>
+<body>
+  <h1>Parking Lot: Perry Street Lot 3</h1>
+  <h2>Available Spaces: <span id="number"></span> / <span id="total"></span></h2>
+  <div id="indicator">
+    <div id="fill"></div>
+  </div>
+  <!-- Dropdown for other parking lots -->
+  <label for="other-lots">Select other parking lots: </label>
+  <select id="other-lots">
+    <option value="Main Lot" selected>Perry Street Lot 3</option>
+    <option value="Lot A">Lot A</option>
+    <option value="Lot B">Lot B</option>
+    <option value="Lot C">Lot C</option>
+    <option value="Lot D">Lot D</option>
+  </select>
+</body>
+</html>
