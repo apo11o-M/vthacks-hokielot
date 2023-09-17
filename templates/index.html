@@ -9,7 +9,6 @@
   <script type="text/javascript">
     $(document).ready(function(){
       const totalSpaces = 62;
-
       function fetchCarCount() {
         $.get('/get_car_count', function(data) {
           const carCount = data.number;
@@ -21,9 +20,22 @@
         });
       }
       fetchCarCount();
+    });
 
-      // we don't need to call the prediction all the time to waste resources for now
-      // setInterval(fetchCarCount, 10);
+    document.addEventListener("DOMContentLoaded", function() {
+      // Simulated available parking spaces
+      let availableSpaces = 21;
+
+      // Update the UI
+      document.getElementById("available-spaces").textContent = availableSpaces;
+      const progressBar = document.getElementById("progress-bar");
+      progressBar.value = 62 - availableSpaces;
+
+      // Dropdown to change parking lot names
+      const otherLotsDropdown = document.getElementById("other-lots");
+      otherLotsDropdown.addEventListener('change', function() {
+        document.getElementById("parking-lot-name").textContent = this.value;
+      });
     });
   </script>
 </head>

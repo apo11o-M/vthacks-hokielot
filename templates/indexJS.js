@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
+{% comment %} document.addEventListener("DOMContentLoaded", function() {
     // Simulated available parking spaces
     let availableSpaces = 21;
 
@@ -12,4 +12,4 @@ document.addEventListener("DOMContentLoaded", function() {
     otherLotsDropdown.addEventListener('change', function() {
         document.getElementById("parking-lot-name").textContent = this.value;
     });
-});
+}); {% endcomment %}
